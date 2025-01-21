@@ -1,0 +1,10 @@
+1 - Copiar a pasta sorteio digital para o disco c:
+
+2 - Instalar visual studio.
+
+3 - Instalar vcredist_x64.
+
+4 - Em configurar pagina, Tirar rodapé e cabeçalho da folha 
+no bloco de notas e colocar a fonte de tamanho 9.
+
+5 - colocar init.bat no inicializar do windows.

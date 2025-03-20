@@ -125,21 +125,21 @@ def pegaUltimaVenda(conexao, valorCupom):
     try:
         cursor = conexao.cursor()
         cursor.execute("""
-        SELECT
-            TO_CHAR("DATA", 'DD-MON-YYYY') AS "DTVENDA",
-            NUMPEDECF,
-            NUMCAIXA,
-            PROTOCOLONFCE,
-            NUMCUPOM,
-            VLTOTAL
-        FROM
-            PCPEDCECF p
-        INNER JOIN PCCLIENT C ON (P.CODCLI = C.CODCLI)
-        WHERE
-            "DATA" = trunc(SYSDATE)
-            AND VLTOTAL >= {}
-            ORDER BY numcupom desc
-            
+            SELECT
+                TO_CHAR("DATA", 'DD-MON-YYYY') AS "DTVENDA",
+                NUMPEDECF,
+                NUMCAIXA,
+                PROTOCOLONFCE,
+                numcupom,
+                VLTOTAL
+            FROM
+                PCPEDCECF p
+            WHERE
+                "DATA" = trunc(SYSDATE)
+                AND VLTOTAL >= {}
+                AND NUMPEDECF = (
+                SELECT MAX(NUMPEDECF) FROM PCPEDCECF WHERE LENGTH(NUMPEDECF) < 10) and numped is null
+
         """.format(float(valorCupom)))
         
         dados = cursor.fetchone()
